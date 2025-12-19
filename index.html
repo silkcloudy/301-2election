@@ -17,153 +17,60 @@
 
         body {
             background-color: var(--paper);
-            /* 素描風背景：結合羊皮紙紋理與手繪五線譜意象 */
             background-image: 
-                linear-gradient(rgba(244, 238, 225, 0.8), rgba(244, 238, 225, 0.8)),
+                linear-gradient(rgba(244, 238, 225, 0.85), rgba(244, 238, 225, 0.85)),
                 url('https://www.transparenttextures.com/patterns/aged-paper.png'),
-                url('https://www.transparenttextures.com/patterns/skulls-pencil.png'); /* 借用細緻素描紋理 */
+                url('https://www.transparenttextures.com/patterns/gray-paper.png');
             color: var(--ink);
             font-family: 'Noto Serif TC', serif;
             margin: 0; padding: 0;
             line-height: 1.6;
         }
 
-        /* 背景裝飾：手繪感五線譜 */
+        /* 素描五線譜背景 */
         .sketch-staff {
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: repeating-linear-gradient(
                 transparent, transparent 40px,
-                rgba(102, 102, 102, 0.1) 40px, rgba(102, 102, 102, 0.1) 41px,
+                rgba(102, 102, 102, 0.08) 40px, rgba(102, 102, 102, 0.08) 41px,
                 transparent 41px, transparent 45px,
-                rgba(102, 102, 102, 0.1) 45px, rgba(102, 102, 102, 0.1) 46px,
+                rgba(102, 102, 102, 0.08) 45px, rgba(102, 102, 102, 0.08) 46px,
                 transparent 46px, transparent 50px,
-                rgba(102, 102, 102, 0.1) 50px, rgba(102, 102, 102, 0.1) 51px,
+                rgba(102, 102, 102, 0.08) 50px, rgba(102, 102, 102, 0.08) 51px,
                 transparent 51px, transparent 55px,
-                rgba(102, 102, 102, 0.1) 55px, rgba(102, 102, 102, 0.1) 56px,
+                rgba(102, 102, 102, 0.08) 55px, rgba(102, 102, 102, 0.08) 56px,
                 transparent 56px, transparent 60px,
-                rgba(102, 102, 102, 0.1) 60px, rgba(102, 102, 102, 0.1) 61px
+                rgba(102, 102, 102, 0.08) 60px, rgba(102, 102, 102, 0.08) 61px
             );
-            pointer-events: none;
-            z-index: -1;
+            pointer-events: none; z-index: -1;
         }
 
-        header {
-            border-bottom: 3px solid var(--burgundy);
-            padding: 60px 20px;
-            text-align: center;
-            background: rgba(255, 255, 255, 0.2);
-        }
+        header { padding: 50px 20px; text-align: center; border-bottom: 2px solid var(--burgundy); background: rgba(255, 255, 255, 0.1); }
+        h1 { font-size: 2.5rem; letter-spacing: 10px; margin: 0; color: var(--burgundy); }
+        .subtitle { font-size: 0.9rem; letter-spacing: 3px; color: var(--gold); margin-top: 5px; text-transform: uppercase; }
 
-        h1 { 
-            font-size: 2.8rem; 
-            letter-spacing: 12px; 
-            margin: 0; 
-            color: var(--burgundy);
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-        }
+        .container { max-width: 800px; margin: 30px auto; padding: 0 20px; }
+        .classic-card { background: rgba(255, 250, 240, 0.95); border: 1px solid var(--gold); padding: 35px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); position: relative; }
 
-        .subtitle { 
-            font-size: 1rem; 
-            letter-spacing: 4px; 
-            text-transform: uppercase; 
-            color: var(--gold);
-            margin-top: 10px;
-        }
+        /* 投票項目 */
+        .vote-item { margin-bottom: 40px; border-bottom: 1px dashed #d1c7ac; padding-bottom: 25px; }
+        .student-name { font-size: 1.4rem; color: var(--burgundy); font-weight: bold; margin-bottom: 10px; display: block; }
+        .trait-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 8px; transition: 0.3s; }
+        
+        .trait-btn { background: transparent; border: 1px solid #d1c7ac; padding: 6px; cursor: pointer; font-family: inherit; font-size: 0.85rem; color: var(--pencil-gray); }
+        .trait-btn.selected { background: var(--burgundy); color: white; border-color: var(--burgundy); }
+        
+        .blank-btn { border-color: #999; color: #666; font-style: italic; margin-bottom: 10px; cursor: pointer; background: none; padding: 5px 15px; font-family: inherit; }
+        .blank-btn.active-blank { background-color: #eee; color: #999; border-style: dashed; }
 
-        .container { max-width: 800px; margin: 40px auto; padding: 0 20px; }
+        /* 揭曉畫面 */
+        .reveal-title { font-size: 2.2rem; color: var(--burgundy); border-bottom: 2px solid var(--gold); display: inline-block; padding: 0 30px; margin-bottom: 30px; }
+        .chart-box { background: white; border: 1px solid #eee; padding: 15px; width: 260px; margin-bottom: 20px; }
+        .cand-name { font-weight: bold; color: var(--burgundy); font-size: 1.3rem; margin-bottom: 5px; }
 
-        .classic-card {
-            background: rgba(255, 250, 240, 0.9);
-            border: 1px solid var(--gold);
-            padding: 40px;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.05);
-            position: relative;
-        }
-
-        .classic-card::before {
-            content: "";
-            position: absolute; top: 10px; left: 10px; right: 10px; bottom: 10px;
-            border: 1px solid rgba(184, 134, 11, 0.3);
-            pointer-events: none;
-        }
-
-        /* 投票表單 */
-        .vote-item {
-            margin-bottom: 40px;
-            border-bottom: 1px dashed #ccc;
-            padding-bottom: 25px;
-        }
-
-        .student-label {
-            font-size: 1.4rem;
-            color: var(--burgundy);
-            display: block;
-            margin-bottom: 15px;
-            font-weight: bold;
-        }
-
-        .trait-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
-            gap: 10px;
-        }
-
-        .trait-btn {
-            background: transparent;
-            border: 1px solid #d1c7ac;
-            padding: 8px;
-            cursor: pointer;
-            font-family: inherit;
-            color: var(--pencil-gray);
-            transition: 0.3s;
-        }
-
-        .trait-btn.selected {
-            background: var(--burgundy);
-            color: white;
-            border-color: var(--burgundy);
-        }
-
-        /* 揭曉儀式 */
-        .officer-name {
-            font-size: 2.5rem;
-            color: var(--burgundy);
-            margin-bottom: 30px;
-            border-bottom: 2px solid var(--gold);
-            display: inline-block;
-            padding: 0 40px;
-        }
-
-        .chart-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 40px;
-        }
-
-        .cand-card {
-            width: 280px;
-            background: white;
-            padding: 20px;
-            border: 1px solid #eee;
-        }
-
-        .btn-action {
-            width: 100%;
-            padding: 20px;
-            background: var(--burgundy);
-            color: white;
-            border: none;
-            font-size: 1.2rem;
-            letter-spacing: 5px;
-            cursor: pointer;
-            margin-top: 20px;
-            font-family: inherit;
-        }
-
+        .btn-action { width: 100%; padding: 18px; background: var(--burgundy); color: white; border: none; font-size: 1.1rem; letter-spacing: 4px; cursor: pointer; margin-top: 20px; font-family: inherit; }
         .hidden { display: none; }
+        .loading-text { font-size: 1.2rem; color: var(--pencil-gray); padding: 50px; }
     </style>
 </head>
 <body>
@@ -172,49 +79,44 @@
 
 <header>
     <h1>301 交響樂章</h1>
-    <div class="subtitle">Class 301 Musician Cadre Appointment</div>
+    <div class="subtitle">Class 301 Musician Cadre Appointment Ceremony</div>
 </header>
 
 <div class="container">
     
     <div id="view-vote" class="classic-card">
-        <h2 style="text-align:center; font-weight: normal; letter-spacing: 4px;">評價名冊</h2>
-        <p style="text-align:center; font-style: italic; color: var(--pencil-gray);">請為每位成員選取兩項最符合的音樂特質</p>
+        <h2 style="text-align:center; font-weight: normal; letter-spacing: 3px;">全體成員特質評價</h2>
+        <p style="text-align:center; font-style: italic; color: var(--pencil-gray); font-size: 0.9rem;">請針對每位成員選取 2 個特質，或標記為暫無建議</p>
         
-        <div style="margin-bottom: 30px; text-align:center;">
-            <input type="text" id="voter-name" placeholder="請簽署您的姓名" style="background:transparent; border:none; border-bottom: 1px solid var(--gold); padding: 10px; text-align:center; width: 200px; font-family: inherit;">
+        <div style="margin: 20px 0; text-align:center;">
+            <input type="text" id="voter-name" placeholder="請簽名 (您的姓名)" style="background:transparent; border:none; border-bottom: 1px solid var(--gold); padding: 8px; text-align:center; width: 180px; font-family: inherit; font-size: 1.1rem;">
         </div>
 
-        <div id="student-list">
-            </div>
-
-        <button class="btn-action" onclick="submitVotes()">完成投遞</button>
+        <div id="student-list"></div>
+        <button class="btn-action" onclick="submitVotes()">密封並提交 ✉️</button>
     </div>
 
     <div id="view-reveal" class="hidden">
         <div class="classic-card" style="text-align: center;">
             <div id="reveal-content">
-                <h2 style="margin-top: 100px;">數據已彙整完成</h2>
-                <p>準備進入授職典禮</p>
+                <div class="loading-text">準備進入授職典禮...</div>
             </div>
-            <button id="next-btn" class="btn-action" style="width:auto; padding: 15px 60px;" onclick="showNext()">揭曉下一職位</button>
+            <button id="next-btn" class="btn-action" style="width:auto; padding: 15px 50px; display:none;" onclick="showNextOfficer()">揭曉下一職位 ❯</button>
         </div>
     </div>
 
-    <div style="text-align:center; margin-top: 60px; opacity: 0.2;">
-        <button onclick="toggleMode()" style="background:none; border:none; color:var(--pencil-gray); cursor:pointer;">切換後台模式</button>
+    <div style="text-align:center; margin-top: 50px; opacity: 0.1;">
+        <button onclick="toggleMode()" style="background:none; border:none; cursor:pointer;">切換模式</button>
     </div>
 </div>
 
 <script>
-    // 配置資料
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbzE9a7r2N7dg9IKu0wCtY4K7PKgBSr_uyEDB95a59MoC750Cyf-pyRgB_uK5HBCRNP1/exec"; 
+    // --- 核心資料設定 ---
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbzBs1VLMICyOwIVJIOfRrfFQHAThOIBKdvib1dhDexSD893AYqpjD415QAOzG5poBJk/exec";
 
     const students = ["安約瑟", "吳睿恩", "林子勛", "林家葦", "張賴瀚如", "陳尹竣", "黃鈺棠", "楊智誠", "歐翔紜", "王亮鈞", "劉品妤", "宋宛霖", "沈字渝", "林恩綺", "洪以真", "馬語杉", "陳芊羽", "黃琳雁", "黃詩婷"];
-    
-    const traitOptions = ["負責", "樂觀", "會協調", "說話有條理", "讓人服氣", "細心", "準時", "有觀察力", "可靠", "親切", "情緒穩定", "做事有規劃", "心智堅定", "在對的時間做對的事情", "正常人的乾淨", "人緣不錯", "體力好", "有時間觀念", "美感佳", "記性好", "和老師的關係不錯", "說到做到", "貼心", "有群眾魅力"];
+    const allTraits = ["負責", "樂觀", "會協調", "說話有條理", "讓人服氣", "細心", "準時", "有觀察力", "可靠", "親切", "情緒穩定", "做事有規劃", "心智堅定", "在對的時間做對的事情", "正常人的乾淨", "人緣不錯", "體力好", "有時間觀念", "美感佳", "記性好", "和老師的關係不錯", "說到做到", "貼心", "有群眾魅力"];
 
-    // 要求的 10 個職位順序
     const officerOrder = [
         { job: "班長", traits: ["負責", "樂觀", "會協調", "說話有條理", "讓人服氣"] },
         { job: "副班長", traits: ["細心", "準時", "有觀察力", "可靠", "親切"] },
@@ -228,27 +130,29 @@
         { job: "輔導股長", traits: ["細心", "貼心", "負責", "有觀察力"] }
     ];
 
-    let currentIdx = -1;
+    let currentOfficerIdx = -1;
+    let cachedVotes = [];
 
-    // 初始化投票介面
+    // --- 初始化投票列表 ---
     function init() {
-        const list = document.getElementById('student-list');
+        const container = document.getElementById('student-list');
         students.forEach(name => {
             const div = document.createElement('div');
             div.className = 'vote-item';
             div.innerHTML = `
-                <span class="student-label">${name}</span>
-                <div class="trait-grid" data-name="${name}">
-                    ${traitOptions.map(t => `<button class="trait-btn" onclick="toggleTrait(this)">${t}</button>`).join('')}
+                <span class="student-name">${name}</span>
+                <button class="blank-btn" onclick="markBlank(this)">🚫 暫無建議特質 (空白)</button>
+                <div class="trait-grid" data-student="${name}">
+                    ${allTraits.map(t => `<button class="trait-btn" onclick="toggleTrait(this)">${t}</button>`).join('')}
                 </div>
             `;
-            list.appendChild(div);
+            container.appendChild(div);
         });
     }
 
     function toggleTrait(btn) {
-        const parent = btn.parentElement;
-        const selected = parent.querySelectorAll('.selected');
+        const pool = btn.parentElement;
+        const selected = pool.querySelectorAll('.selected');
         if (btn.classList.contains('selected')) {
             btn.classList.remove('selected');
         } else if (selected.length < 2) {
@@ -256,81 +160,98 @@
         }
     }
 
-    // 提交全體評價
+    function markBlank(btn) {
+        const pool = btn.nextElementSibling;
+        const buttons = pool.querySelectorAll('.trait-btn');
+        buttons.forEach(b => b.classList.remove('selected'));
+        if (!btn.classList.contains('active-blank')) {
+            btn.classList.add('active-blank');
+            btn.innerHTML = "✖ 已標記為空白";
+            pool.style.opacity = "0.3"; pool.style.pointerEvents = "none";
+        } else {
+            btn.classList.remove('active-blank');
+            btn.innerHTML = "🚫 暫無建議特質 (空白)";
+            pool.style.opacity = "1"; pool.style.pointerEvents = "auto";
+        }
+    }
+
     async function submitVotes() {
         const voter = document.getElementById('voter-name').value;
-        if (!voter) return alert("請簽署您的姓名。");
-
-        const voteData = [];
-        const grids = document.querySelectorAll('.trait-grid');
-        
-        for (let grid of grids) {
-            const selected = grid.querySelectorAll('.selected');
-            if (selected.length < 2) return alert(`請完成對 ${grid.dataset.name} 的評價！`);
-            voteData.push({
-                target: grid.dataset.name,
-                t1: selected[0].textContent,
-                t2: selected[1].textContent
-            });
+        if (!voter) return alert("請簽名以示負責。");
+        const data = [];
+        const items = document.querySelectorAll('.vote-item');
+        for (let item of items) {
+            const name = item.querySelector('.student-name').textContent;
+            const isBlank = item.querySelector('.blank-btn').classList.contains('active-blank');
+            const selected = item.querySelector('.trait-grid').querySelectorAll('.selected');
+            if (!isBlank && selected.length < 2) return alert(`請完成對 ${name} 的評價。`);
+            data.push({ target: name, t1: isBlank ? "無" : selected[0].textContent, t2: isBlank ? "無" : selected[1].textContent });
         }
-
-        if (!confirm("確定要密封並提交所有評價嗎？")) return;
-
+        if(!confirm("確認提交？")) return;
         try {
-            await fetch(GAS_URL, {
-                method: 'POST',
-                mode: 'no-cors',
-                body: JSON.stringify({ voter, votes: voteData })
-            });
-            alert("提交成功，感謝您的參與。");
-            location.reload();
-        } catch(e) {
-            alert("提交失敗，請檢查連線。");
-        }
+            await fetch(GAS_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ voter, votes: data }) });
+            alert("提交完成！"); location.reload();
+        } catch(e) { alert("提交失敗，請檢查網址。"); }
     }
 
-    // 揭曉儀式邏輯
-    function toggleMode() {
+    // --- 揭曉邏輯 ---
+    async function toggleMode() {
         document.getElementById('view-vote').classList.toggle('hidden');
         document.getElementById('view-reveal').classList.toggle('hidden');
+        if(!document.getElementById('view-reveal').classList.contains('hidden')) {
+            await fetchCloudData();
+        }
     }
 
-    function showNext() {
-        currentIdx++;
-        if (currentIdx >= officerOrder.length) {
-            document.getElementById('reveal-content').innerHTML = "<h1>典禮結束</h1><p>301 樂團正式成軍</p>";
-            document.getElementById('next-btn').style.display = "none";
+    async function fetchCloudData() {
+        try {
+            const res = await fetch(GAS_URL + "?action=getData");
+            cachedVotes = await res.json();
+            document.getElementById('reveal-content').innerHTML = "<h2>雲端樂譜已讀取完成</h2><p>全班投票數據已彙整</p>";
+            document.getElementById('next-btn').style.display = "inline-block";
+        } catch(e) {
+            document.getElementById('reveal-content').innerHTML = "<h2>抓取失敗</h2><p>請確認 GAS 是否有 getData 功能</p>";
+        }
+    }
+
+    function showNextOfficer() {
+        currentOfficerIdx++;
+        if (currentOfficerIdx >= officerOrder.length) {
+            document.getElementById('reveal-content').innerHTML = "<h1>典禮圓滿結束</h1>";
+            document.getElementById('next-btn').style.display = 'none';
             return;
         }
 
-        const off = officerOrder[currentIdx];
-        const content = document.getElementById('reveal-content');
-        content.innerHTML = `
-            <div class="officer-name">${off.job}</div>
-            <div class="chart-container" id="chart-area"></div>
-        `;
+        const off = officerOrder[currentOfficerIdx];
+        
+        // 計算排名
+        let rankings = students.map(name => {
+            let score = 0;
+            let detail = off.traits.map(t => {
+                let count = cachedVotes.filter(v => v.target === name && (v.t1 === t || v.t2 === t)).length;
+                score += count; return count;
+            });
+            return { name, score, detail };
+        }).sort((a,b) => b.score - a.score);
 
-        // 模擬前三名（實際應用時需從後台資料庫計算）
-        for (let i = 1; i <= 3; i++) {
-            const cand = document.createElement('div');
-            cand.className = 'cand-card';
-            cand.innerHTML = `<h3>候選人 ${i}</h3><canvas id="c-${currentIdx}-${i}"></canvas>`;
-            document.getElementById('chart-area').appendChild(cand);
+        const top3 = rankings.slice(0, 3);
+        const content = document.getElementById('reveal-content');
+        content.innerHTML = `<div class="reveal-title">${off.job}</div><div style="display:flex; flex-wrap:wrap; justify-content:center; gap:20px;" id="chart-area"></div>`;
+
+        top3.forEach((cand, i) => {
+            const box = document.createElement('div');
+            box.className = 'chart-box';
+            box.innerHTML = `<div class="cand-name">${cand.name}</div><canvas id="c-${currentOfficerIdx}-${i}"></canvas>`;
+            document.getElementById('chart-area').appendChild(box);
             
             setTimeout(() => {
-                new Chart(document.getElementById(`c-${currentIdx}-${i}`), {
+                new Chart(document.getElementById(`c-${currentOfficerIdx}-${i}`), {
                     type: 'bar',
-                    data: {
-                        labels: off.traits,
-                        datasets: [{ 
-                            data: [Math.floor(Math.random()*10+5), Math.floor(Math.random()*10+3), Math.floor(Math.random()*10), Math.floor(Math.random()*10), Math.floor(Math.random()*10)], 
-                            backgroundColor: '#800020' 
-                        }]
-                    },
-                    options: { indexAxis: 'y', plugins: { legend: { display: false } } }
+                    data: { labels: off.traits, datasets: [{ data: cand.detail, backgroundColor: '#800020' }] },
+                    options: { indexAxis: 'y', plugins: { legend: { display: false } }, scales: { x: { beginAtZero: true, ticks: {stepSize: 1} } } }
                 });
             }, 50);
-        }
+        });
     }
 
     init();
